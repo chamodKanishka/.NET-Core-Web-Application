@@ -1,15 +1,18 @@
-﻿@model IEnumerable<MyApp.Entities.Resturant>
+﻿@model MyApp.ViewModels.HomePageViewModel
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>OdeToFood</title>
 </head>
 <body>
     <h1>Welcome</h1>
+    <h3>@Model.CurrentMessage</h3>
     <table>
-        @foreach (var resturant in Model)
+        @foreach (var resturant in Model.Resturants)
         {
         <tr>
-            <td>@resturant.id</td>
+            <td>
+                @Html.ActionLink("View","Details", new { id = resturant.id})
+            </td>
             <td>@resturant.name</td>
         </tr>
         }

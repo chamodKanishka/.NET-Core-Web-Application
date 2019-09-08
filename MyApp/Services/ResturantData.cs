@@ -1,5 +1,4 @@
 ﻿using MyApp.Entities;
-using MyApp.modal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +9,13 @@ namespace MyApp.Services
     public interface IResturantData
     {
         IEnumerable<Resturant> GetAll();
+        Resturant Get(int id);
+        Resturant Add(Resturant newResturant);
 
     }
     public class InMemoryResturantData : IResturantData
     {
-        public InMemoryResturantData()
+        static InMemoryResturantData()
         {
             _resturants = new List<Resturant>
             {
@@ -28,6 +29,19 @@ namespace MyApp.Services
             return _resturants;
         }
 
-        List<Resturant> _resturants;
+        public Resturant Get(int id)
+        {
+            return _resturants.FirstOrDefault(r => r.id == id);
+        }
+
+        public Resturant Add(Resturant newResturant)
+        {
+            newResturant.id = _resturants.Max(r => r.id) + 1;
+            _resturants.Add(newResturant);
+
+            return newResturant;
+        }
+
+        static List<Resturant> _resturants;
     }
 }
